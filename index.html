@@ -6,22 +6,24 @@
     <title>Plano Terapêutico Singular - UTI São José Hospital</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* VARIÁVEIS DE CORES E ESTILOS */
+        /* ===== VARIÁVEIS E RESET ===== */
         :root {
             --azul-hospital: #0056a6;
             --azul-claro: #e3f2fd;
+            --azul-escuro: #003d82;
             --verde-sucesso: #2e7d32;
             --laranja-alerta: #ff9800;
             --vermelho-perigo: #d32f2f;
-            --cinza-claro: #f5f5f5;
+            --dourado: #d4af37;
+            --cinza-claro: #f8f9fa;
             --cinza-medio: #e0e0e0;
             --cinza-escuro: #424242;
             --branco: #ffffff;
-            --sombra: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --borda: 1px solid #e0e0e0;
+            --sombra-suave: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --sombra-forte: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --gradiente-hospital: linear-gradient(135deg, var(--azul-hospital) 0%, var(--azul-escuro) 100%);
         }
 
-        /* RESET E ESTILOS GERAIS */
         * {
             margin: 0;
             padding: 0;
@@ -29,69 +31,86 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
             color: var(--cinza-escuro);
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* LAYOUT PRINCIPAL */
+        /* ===== LAYOUT PRINCIPAL ===== */
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
-        /* CARTÃO PRINCIPAL */
         .card-principal {
             background: var(--branco);
-            border-radius: 16px;
-            box-shadow: var(--sombra);
+            border-radius: 24px;
+            box-shadow: var(--sombra-forte);
             overflow: hidden;
-            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease-out;
         }
 
-        /* HEADER COM LOGO */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== HEADER COM LOGO ===== */
         .header-hospital {
-            background: linear-gradient(135deg, var(--azul-hospital) 0%, #003d82 100%);
+            background: var(--gradiente-hospital);
             color: white;
-            padding: 1.5rem 2rem;
+            padding: 2rem 3rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        .header-hospital::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--dourado), #ffd700);
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 20px;
-            margin-bottom: 10px;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            border: 3px solid var(--dourado);
         }
 
-        .logo-placeholder {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--azul-hospital) 30%, #4a90e2 100%);
+        .logo-simbolo {
+            width: 110px;
+            height: 110px;
+            background: var(--gradiente-hospital);
             border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 14px;
             text-align: center;
-            padding: 10px;
+            padding: 15px;
+            font-family: 'Georgia', serif;
         }
 
         .hospital-info {
@@ -99,367 +118,427 @@
         }
 
         .hospital-info h1 {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-            font-weight: 600;
+            font-size: 2.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .hospital-info h2 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             opacity: 0.9;
             font-weight: 400;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hospital-info .tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+            font-style: italic;
         }
 
         .sistema-info {
             position: absolute;
-            bottom: 15px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
+            bottom: 20px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 25px;
             font-size: 0.9rem;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* NAVEGAÇÃO POR ABAS */
-        .abas-navegacao {
+        /* ===== NAVEGAÇÃO ===== */
+        .nav-tabs {
             display: flex;
-            background: var(--cinza-claro);
-            border-bottom: var(--borda);
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-bottom: 2px solid var(--cinza-medio);
         }
 
-        .aba {
+        .tab-btn {
             flex: 1;
-            padding: 1rem;
+            padding: 1.2rem;
             background: none;
             border: none;
             cursor: pointer;
             font-weight: 600;
+            font-size: 1rem;
             color: var(--cinza-escuro);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 12px;
+            border-right: 1px solid var(--cinza-medio);
         }
 
-        .aba:hover {
+        .tab-btn:last-child {
+            border-right: none;
+        }
+
+        .tab-btn:hover {
             background: rgba(0, 86, 166, 0.05);
-        }
-
-        .aba.ativa {
-            background: var(--branco);
             color: var(--azul-hospital);
         }
 
-        .aba.ativa::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--azul-hospital);
+        .tab-btn.active {
+            background: var(--branco);
+            color: var(--azul-hospital);
+            box-shadow: 0 -3px 0 var(--azul-hospital) inset;
         }
 
-        /* CONTEÚDO DAS ABAS */
-        .conteudo-aba {
-            padding: 0;
+        /* ===== CONTEÚDO DAS ABAS ===== */
+        .tab-content {
             display: none;
+            padding: 0;
         }
 
-        .conteudo-aba.ativa {
+        .tab-content.active {
             display: block;
         }
 
-        /* SEÇÕES COMPACTAS */
-        .secao {
-            padding: 1.5rem;
-            border-bottom: var(--borda);
+        /* ===== SEÇÕES ===== */
+        .section {
+            padding: 2rem 3rem;
+            border-bottom: 1px solid var(--cinza-medio);
         }
 
-        .secao:last-child {
+        .section:last-child {
             border-bottom: none;
         }
 
-        .titulo-secao {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--azul-hospital);
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--azul-claro);
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--azul-claro);
         }
 
-        /* FORMULÁRIO COMPACTO */
-        .grid-formulario {
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--azul-claro);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--azul-hospital);
+            font-size: 1.3rem;
+        }
+
+        .section-title {
+            flex: 1;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--azul-hospital);
+        }
+
+        /* ===== FORMULÁRIO ===== */
+        .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
-        .grupo-form {
-            margin-bottom: 1rem;
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        .label-form {
+        .form-label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.6rem;
             color: var(--cinza-escuro);
         }
 
-        .input-form {
+        .form-label.required::after {
+            content: ' *';
+            color: var(--vermelho-perigo);
+        }
+
+        .form-input {
             width: 100%;
-            padding: 0.7rem 0.9rem;
-            border: 1.5px solid var(--cinza-medio);
-            border-radius: 8px;
-            font-size: 0.95rem;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--cinza-medio);
+            border-radius: 10px;
+            font-size: 1rem;
             transition: all 0.3s;
             background: var(--branco);
         }
 
-        .input-form:focus {
+        .form-input:focus {
             outline: none;
             border-color: var(--azul-hospital);
-            box-shadow: 0 0 0 3px rgba(0, 86, 166, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 86, 166, 0.15);
         }
 
-        textarea.input-form {
-            min-height: 80px;
+        textarea.form-input {
+            min-height: 100px;
             resize: vertical;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        select.input-form {
+        /* ===== SAPS III ===== */
+        .saps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .saps-result {
+            background: linear-gradient(135deg, var(--azul-claro) 0%, #bbdefb 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--azul-hospital);
+            margin-top: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* ===== EQUIPE ===== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .team-member {
+            background: var(--cinza-claro);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
             cursor: pointer;
         }
 
-        /* GRID SAPS */
-        .grid-saps {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 0.8rem;
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-suave);
+            border-color: var(--azul-hospital);
+        }
+
+        .team-member.selected {
+            background: var(--azul-claro);
+            border-color: var(--azul-hospital);
+        }
+
+        .member-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 1rem;
         }
 
-        .resultado-saps {
-            background: var(--azul-claro);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--azul-hospital);
-            font-weight: 600;
-            margin-top: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        /* EQUIPE MULTIPROFISSIONAL */
-        .grid-equipe {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .membro-equipe {
-            background: var(--cinza-claro);
-            border-radius: 8px;
-            padding: 1rem;
-            transition: all 0.3s;
-            border: 1.5px solid transparent;
-        }
-
-        .membro-equipe:hover {
-            border-color: var(--azul-hospital);
-            transform: translateY(-2px);
-            box-shadow: var(--sombra);
-        }
-
-        .membro-equipe.selecionado {
-            background: var(--azul-claro);
-            border-color: var(--azul-hospital);
-        }
-
-        .info-membro {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .checkbox-equipe {
-            width: 20px;
-            height: 20px;
+        .member-checkbox {
+            width: 22px;
+            height: 22px;
             cursor: pointer;
+            accent-color: var(--azul-hospital);
         }
 
-        .nome-membro {
+        .member-name {
             font-weight: 600;
             color: var(--cinza-escuro);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
-        .assinatura {
-            height: 60px;
+        .signature-area {
+            height: 70px;
             border-bottom: 2px dashed var(--cinza-medio);
-            margin-top: 10px;
+            margin-top: 1rem;
             position: relative;
         }
 
-        .assinatura::after {
-            content: 'Assinatura';
+        .signature-label {
             position: absolute;
-            bottom: 5px;
+            bottom: 8px;
             left: 0;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--cinza-escuro);
             opacity: 0.7;
         }
 
-        /* BOTÕES */
-        .grupo-botoes {
+        /* ===== BOTÕES ===== */
+        .action-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: var(--borda);
+            gap: 1rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--cinza-medio);
         }
 
         .btn {
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-primario {
-            background: var(--azul-hospital);
+        .btn-primary {
+            background: var(--gradiente-hospital);
             color: white;
         }
 
-        .btn-primario:hover {
-            background: #004a8f;
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 86, 166, 0.3);
         }
 
-        .btn-secundario {
-            background: var(--verde-sucesso);
+        .btn-success {
+            background: linear-gradient(135deg, var(--verde-sucesso) 0%, #4caf50 100%);
             color: white;
         }
 
-        .btn-secundario:hover {
-            background: #27632a;
-        }
-
-        .btn-terciario {
-            background: var(--laranja-alerta);
+        .btn-warning {
+            background: linear-gradient(135deg, var(--laranja-alerta) 0%, #ffb74d 100%);
             color: white;
         }
 
-        /* LISTA DE PLANOS */
-        .grid-planos {
+        /* ===== LISTA DE PLANOS ===== */
+        .plans-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
-        .cartao-plano {
+        .plan-card {
             background: var(--branco);
-            border-radius: 10px;
-            padding: 1.2rem;
-            border: var(--borda);
+            border-radius: 15px;
+            padding: 1.8rem;
+            border: 2px solid var(--cinza-medio);
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
         }
 
-        .cartao-plano:hover {
+        .plan-card:hover {
             border-color: var(--azul-hospital);
-            box-shadow: var(--sombra);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-suave);
         }
 
-        .cabecalho-plano {
+        .plan-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
             border-bottom: 1px solid var(--cinza-claro);
         }
 
-        .badge-leito {
+        .bed-badge {
             background: var(--azul-hospital);
             color: white;
-            padding: 4px 12px;
+            padding: 6px 15px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
         }
 
-        /* VISUALIZAÇÃO DO PLANO */
-        .visualizacao-plano {
+        /* ===== VISUALIZAÇÃO ===== */
+        .plano-view {
             background: var(--branco);
-            padding: 2rem;
-            border-radius: 12px;
-            border: var(--borda);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--cinza-medio);
             font-size: 0.95rem;
+            line-height: 1.7;
         }
 
-        .secao-visualizacao {
-            margin-bottom: 1.5rem;
+        .view-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--cinza-claro);
             page-break-inside: avoid;
         }
 
-        .titulo-visualizacao {
+        .view-title {
             color: var(--azul-hospital);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.4rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--azul-claro);
         }
 
-        /* OPÇÕES DE IMPRESSÃO */
-        .opcoes-impressao {
+        /* ===== IMPRESSÃO ===== */
+        .print-options {
             background: var(--cinza-claro);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
+            padding: 1.8rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
         }
 
-        .grid-opcoes {
+        .print-checkboxes {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
-        .opcao-impressao {
+        .print-option {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        /* ESTILOS PARA IMPRESSÃO */
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 992px) {
+            .header-hospital {
+                padding: 1.5rem;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .hospital-info h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .form-grid,
+            .team-grid,
+            .plans-grid,
+            .print-checkboxes {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ===== IMPRESSÃO ===== */
         @media print {
             body {
                 background: white !important;
@@ -476,23 +555,18 @@
                 border: none !important;
             }
             
-            .secao {
+            .section {
                 padding: 0.5rem 0 !important;
                 border: none !important;
                 margin-bottom: 1rem !important;
             }
             
-            .visualizacao-plano {
+            .plano-view {
                 border: none !important;
                 padding: 0 !important;
             }
             
-            .assinatura {
-                height: 50px !important;
-            }
-            
-            /* Oculta seções não selecionadas para impressão */
-            .secao-visualizacao:not(.imprimir) {
+            .view-section:not(.print-include) {
                 display: none !important;
             }
             
@@ -501,81 +575,35 @@
             }
         }
 
-        /* RESPONSIVIDADE */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .abas-navegacao {
-                flex-direction: column;
-            }
-            
-            .grid-formulario,
-            .grid-saps,
-            .grid-equipe,
-            .grid-planos,
-            .grid-opcoes {
-                grid-template-columns: 1fr;
-            }
-            
-            .logo-container {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
-            }
-            
-            .sistema-info {
-                position: static;
-                margin-top: 10px;
-                text-align: center;
-            }
-            
-            .grupo-botoes {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
+        /* ===== UTILITÁRIOS ===== */
+        .hidden {
+            display: none;
         }
 
-        /* ESTILOS ESPECÍFICOS */
-        .obrigatorio::after {
-            content: ' *';
-            color: var(--vermelho-perigo);
-        }
-
-        .campo-invalido {
-            border-color: var(--vermelho-perigo) !important;
-            background-color: #ffebee !important;
-        }
-
-        .mensagem-status {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+        .alert {
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
             font-weight: 600;
             display: none;
         }
 
-        .mensagem-sucesso {
+        .alert-success {
             background: #e8f5e9;
             color: var(--verde-sucesso);
             border-left: 4px solid var(--verde-sucesso);
         }
 
-        .mensagem-erro {
+        .alert-error {
             background: #ffebee;
             color: var(--vermelho-perigo);
             border-left: 4px solid var(--vermelho-perigo);
         }
 
-        .contador-planos {
+        .count-badge {
             background: var(--azul-hospital);
             color: white;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 12px;
             font-size: 0.85rem;
             margin-left: 8px;
@@ -586,291 +614,313 @@
     <div class="container">
         <!-- CARTÃO PRINCIPAL -->
         <div class="card-principal">
-            <!-- HEADER COM LOGO DO HOSPITAL -->
+            <!-- HEADER COM LOGO -->
             <div class="header-hospital">
                 <div class="logo-container">
                     <div class="logo">
-                        <div class="logo-placeholder">
-                            <div style="text-align: center; padding: 5px;">
-                                <div style="font-size: 16px; font-weight: bold;">SÃO JOSÉ</div>
-                                <div style="font-size: 12px; margin-top: 3px;">HOSPITAL</div>
-                            </div>
+                        <div class="logo-simbolo">
+                            <div style="font-size: 20px; font-weight: bold;">SÃO JOSÉ</div>
+                            <div style="font-size: 14px; margin-top: 5px;">HOSPITAL</div>
+                            <div style="font-size: 10px; margin-top: 8px; opacity: 0.9;">EXCELÊNCIA EM SAÚDE</div>
                         </div>
                     </div>
                     <div class="hospital-info">
-                        <h1>SÃO JOSÉ HOSPITAL</h1>
+                        <h1>HOSPITAL SÃO JOSÉ</h1>
                         <h2>Unidade de Terapia Intensiva Adulta</h2>
-                        <p style="opacity: 0.8; font-size: 0.95rem;">Plano Terapêutico Singular - Sistema de Gerenciamento</p>
+                        <p class="tagline">Plano Terapêutico Singular - Sistema de Gerenciamento Inteligente</p>
                     </div>
                 </div>
                 <div class="sistema-info">
-                    <i class="fas fa-shield-alt"></i> Sistema seguro | Dados armazenados localmente
+                    <i class="fas fa-shield-alt"></i> Sistema Seguro | Hospedado no GitHub Pages
                 </div>
             </div>
 
-            <!-- NAVEGAÇÃO POR ABAS -->
-            <div class="abas-navegacao no-print">
-                <button class="aba ativa" onclick="mudarAba('edicao')">
+            <!-- NAVEGAÇÃO -->
+            <div class="nav-tabs no-print">
+                <button class="tab-btn active" onclick="openTab('editar')">
                     <i class="fas fa-edit"></i> Novo/Editar Plano
                 </button>
-                <button class="aba" onclick="mudarAba('lista')">
-                    <i class="fas fa-list"></i> Planos Salvos <span id="contador" class="contador-planos">0</span>
+                <button class="tab-btn" onclick="openTab('lista')">
+                    <i class="fas fa-list"></i> Planos Salvos <span id="plansCount" class="count-badge">0</span>
                 </button>
-                <button class="aba" onclick="mudarAba('visualizacao')">
+                <button class="tab-btn" onclick="openTab('visualizar')">
                     <i class="fas fa-eye"></i> Visualizar
                 </button>
-                <button class="aba" onclick="mudarAba('impressao')">
+                <button class="tab-btn" onclick="openTab('imprimir')">
                     <i class="fas fa-print"></i> Imprimir/Exportar
                 </button>
             </div>
 
-            <!-- MENSAGENS DE STATUS -->
-            <div id="mensagemStatus" class="mensagem-status"></div>
+            <!-- ALERTAS -->
+            <div id="alertMessage" class="alert"></div>
 
             <!-- CONTEÚDO DAS ABAS -->
-            <div id="conteudoAbas">
-                <!-- ABA 1: EDIÇÃO DO PLANO -->
-                <div id="abaEdicao" class="conteudo-aba ativa">
-                    <form id="formularioPlano" onsubmit="return false;">
+            <div id="tabContents">
+                <!-- ABA 1: EDIÇÃO -->
+                <div id="editar" class="tab-content active">
+                    <form id="planoForm">
                         <!-- DADOS DO PACIENTE -->
-                        <div class="secao">
-                            <div class="titulo-secao">
-                                <i class="fas fa-user-injured"></i>
-                                Dados do Paciente
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-user-injured"></i>
+                                </div>
+                                <div class="section-title">Dados do Paciente</div>
                             </div>
-                            <div class="grid-formulario">
-                                <div class="grupo-form">
-                                    <label class="label-form obrigatorio">Nome Completo</label>
-                                    <input type="text" class="input-form" id="nomePaciente" required>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label required">Nome Completo</label>
+                                    <input type="text" class="form-input" id="nome" required>
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form obrigatorio">Idade (anos)</label>
-                                    <input type="number" class="input-form" id="idade" min="0" max="120" required>
+                                <div class="form-group">
+                                    <label class="form-label required">Idade (anos)</label>
+                                    <input type="number" class="form-input" id="idade" min="0" max="120" required>
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form obrigatorio">Sexo</label>
-                                    <select class="input-form" id="sexo" required>
+                                <div class="form-group">
+                                    <label class="form-label required">Sexo</label>
+                                    <select class="form-input" id="sexo" required>
                                         <option value="">Selecione</option>
                                         <option value="M">Masculino</option>
                                         <option value="F">Feminino</option>
                                     </select>
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">Leito</label>
-                                    <input type="text" class="input-form" id="leito" placeholder="Ex: UTI-01">
+                                <div class="form-group">
+                                    <label class="form-label">Leito</label>
+                                    <input type="text" class="form-input" id="leito" placeholder="Ex: UTI-01">
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form obrigatorio">Data de Admissão</label>
-                                    <input type="date" class="input-form" id="dataAdmissao" required>
+                                <div class="form-group">
+                                    <label class="form-label required">Data de Admissão</label>
+                                    <input type="date" class="form-input" id="admissao" required>
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">Registro Hospitalar</label>
-                                    <input type="text" class="input-form" id="registro" placeholder="Nº do prontuário">
+                                <div class="form-group">
+                                    <label class="form-label">Registro Hospitalar</label>
+                                    <input type="text" class="form-input" id="registro" placeholder="Nº do prontuário">
                                 </div>
                             </div>
                         </div>
 
                         <!-- DIAGNÓSTICO E HISTÓRIA -->
-                        <div class="secao">
-                            <div class="titulo-secao">
-                                <i class="fas fa-stethoscope"></i>
-                                Avaliação Clínica
-                            </div>
-                            <div class="grid-formulario">
-                                <div class="grupo-form" style="grid-column: span 2;">
-                                    <label class="label-form obrigatorio">Diagnóstico Principal</label>
-                                    <textarea class="input-form" id="diagnostico" rows="3" required></textarea>
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-stethoscope"></i>
                                 </div>
-                                <div class="grupo-form" style="grid-column: span 2;">
-                                    <label class="label-form">História Pregressa</label>
-                                    <textarea class="input-form" id="historia" rows="3" placeholder="Comorbidades, cirurgias prévias, alergias, medicações..."></textarea>
+                                <div class="section-title">Avaliação Clínica</div>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group" style="grid-column: span 2;">
+                                    <label class="form-label required">Diagnóstico Principal</label>
+                                    <textarea class="form-input" id="diagnostico" rows="3" required></textarea>
+                                </div>
+                                <div class="form-group" style="grid-column: span 2;">
+                                    <label class="form-label">História Pregressa</label>
+                                    <textarea class="form-input" id="historia" rows="3" 
+                                              placeholder="Comorbidades, cirurgias prévias, alergias, medicações em uso contínuo..."></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- ESCALA SAPS III -->
-                        <div class="secao">
-                            <div class="titulo-secao">
-                                <i class="fas fa-calculator"></i>
-                                Escala SAPS III
+                        <!-- SAPS III -->
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <div class="section-title">Escala SAPS III</div>
                             </div>
-                            <div class="grid-saps">
-                                <div class="grupo-form">
-                                    <label class="label-form">Idade</label>
-                                    <input type="number" class="input-form" id="sapsIdade" min="0" max="120">
+                            <div class="saps-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Idade</label>
+                                    <input type="number" class="form-input" id="sapsIdade">
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">PAS (mmHg)</label>
-                                    <input type="number" class="input-form" id="sapsPas" min="0">
+                                <div class="form-group">
+                                    <label class="form-label">PAS (mmHg)</label>
+                                    <input type="number" class="form-input" id="sapsPas">
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">FC (bpm)</label>
-                                    <input type="number" class="input-form" id="sapsFc" min="0">
+                                <div class="form-group">
+                                    <label class="form-label">FC (bpm)</label>
+                                    <input type="number" class="form-input" id="sapsFc">
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">Temp (°C)</label>
-                                    <input type="number" class="input-form" id="sapsTemp" step="0.1" min="20" max="45">
+                                <div class="form-group">
+                                    <label class="form-label">Temp (°C)</label>
+                                    <input type="number" class="form-input" id="sapsTemp" step="0.1">
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">PaO₂/FiO₂</label>
-                                    <input type="number" class="input-form" id="sapsPaO2" min="0">
+                                <div class="form-group">
+                                    <label class="form-label">PaO₂/FiO₂</label>
+                                    <input type="number" class="form-input" id="sapsPaO2">
                                 </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">Glasgow</label>
-                                    <input type="number" class="input-form" id="sapsGlasgow" min="3" max="15">
-                                </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">Bilirrubina (mg/dL)</label>
-                                    <input type="number" class="input-form" id="sapsBilirrubina" step="0.1" min="0">
-                                </div>
-                                <div class="grupo-form">
-                                    <label class="label-form">Leucócitos (x10³/µL)</label>
-                                    <input type="number" class="input-form" id="sapsLeucocitos" step="0.1" min="0">
+                                <div class="form-group">
+                                    <label class="form-label">Glasgow</label>
+                                    <input type="number" class="form-input" id="sapsGlasgow" min="3" max="15">
                                 </div>
                             </div>
-                            <div class="grupo-botoes" style="border: none; padding: 0; margin: 1rem 0;">
-                                <button type="button" class="btn btn-secundario" onclick="calcularSAPS()">
+                            <div class="action-buttons" style="border: none; padding: 1rem 0; margin: 1rem 0;">
+                                <button type="button" class="btn btn-warning" onclick="calcularSAPS()">
                                     <i class="fas fa-calculator"></i> Calcular SAPS III
                                 </button>
                             </div>
-                            <div id="resultadoSAPS" class="resultado-saps">
-                                SAPS III: Não calculado | Mortalidade estimada: --%
+                            <div id="sapsResult" class="saps-result">
+                                SAPS III: -- | Mortalidade estimada: --% | Classificação: --
                             </div>
                         </div>
 
                         <!-- METAS TERAPÊUTICAS -->
-                        <div class="secao">
-                            <div class="titulo-secao">
-                                <i class="fas fa-bullseye"></i>
-                                Metas Terapêuticas
-                            </div>
-                            <div class="grid-formulario">
-                                <div class="grupo-form" style="grid-column: span 2;">
-                                    <label class="label-form obrigatorio">Meta Terapêutica Diária</label>
-                                    <textarea class="input-form" id="metaDiaria" rows="4" required 
-                                              placeholder="Ex: 1. Controlar foco infeccioso em 24h&#10;2. Normalizar lactato em 6h&#10;3. Estabilidade hemodinâmica (PAM ≥65mmHg)"></textarea>
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-bullseye"></i>
                                 </div>
-                                <div class="grupo-form" style="grid-column: span 2;">
-                                    <label class="label-form">Meta Anterior Proposta</label>
-                                    <textarea class="input-form" id="metaAnterior" rows="3" 
-                                              placeholder="Metas estabelecidas na avaliação anterior"></textarea>
-                                    <label class="label-form" style="margin-top: 1rem;">Pendências</label>
-                                    <textarea class="input-form" id="pendencias" rows="3" 
-                                              placeholder="Exames pendentes, avaliações necessárias..."></textarea>
+                                <div class="section-title">Metas Terapêuticas</div>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group" style="grid-column: span 2;">
+                                    <label class="form-label required">Meta Terapêutica Diária</label>
+                                    <textarea class="form-input" id="metaDiaria" rows="4" required 
+                                              placeholder="Exemplo de formatação:
+1. Controle do foco infeccioso em 24h
+2. Normalização do lactato em 6h
+3. Estabilidade hemodinâmica (PAM ≥65mmHg)
+4. Otimização da ventilação mecânica"></textarea>
+                                </div>
+                                <div class="form-group" style="grid-column: span 2;">
+                                    <label class="form-label">Meta Anterior Proposta</label>
+                                    <textarea class="form-input" id="metaAnterior" rows="3" 
+                                              placeholder="Metas estabelecidas na avaliação anterior..."></textarea>
+                                    <label class="form-label" style="margin-top: 1.5rem;">Pendências</label>
+                                    <textarea class="form-input" id="pendencias" rows="3" 
+                                              placeholder="Exames pendentes, avaliações necessárias, intervenções a realizar..."></textarea>
                                 </div>
                             </div>
                         </div>
 
                         <!-- EQUIPE MULTIPROFISSIONAL -->
-                        <div class="secao">
-                            <div class="titulo-secao">
-                                <i class="fas fa-users"></i>
-                                Equipe Multiprofissional
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="section-title">Equipe Multiprofissional</div>
                             </div>
-                            <div class="grid-equipe">
+                            <div class="team-grid">
                                 <!-- MÉDICO -->
-                                <div class="membro-equipe" onclick="selecionarMembro(this)">
-                                    <div class="info-membro">
-                                        <input type="checkbox" class="checkbox-equipe" id="equipeMedico" onclick="event.stopPropagation()">
-                                        <div class="nome-membro">
+                                <div class="team-member" onclick="toggleTeamMember(this)">
+                                    <div class="member-header">
+                                        <input type="checkbox" class="member-checkbox" id="teamMedico" onclick="event.stopPropagation()">
+                                        <div class="member-name">
                                             <i class="fas fa-user-md"></i> Médico Intensivista
                                         </div>
                                     </div>
-                                    <div class="assinatura"></div>
+                                    <div class="signature-area">
+                                        <div class="signature-label">Assinatura e CRM</div>
+                                    </div>
                                 </div>
 
-                                <!-- ENFERMEIRO -->
-                                <div class="membro-equipe" onclick="selecionarMembro(this)">
-                                    <div class="info-membro">
-                                        <input type="checkbox" class="checkbox-equipe" id="equipeEnfermeiro" onclick="event.stopPropagation()">
-                                        <div class="nome-membro">
-                                            <i class="fas fa-user-nurse"></i> Enfermeiro
+                                <!-- ENFERMAGEM -->
+                                <div class="team-member" onclick="toggleTeamMember(this)">
+                                    <div class="member-header">
+                                        <input type="checkbox" class="member-checkbox" id="teamEnfermagem" onclick="event.stopPropagation()">
+                                        <div class="member-name">
+                                            <i class="fas fa-user-nurse"></i> Enfermagem
                                         </div>
                                     </div>
-                                    <div class="assinatura"></div>
+                                    <div class="signature-area">
+                                        <div class="signature-label">Assinatura e COREN</div>
+                                    </div>
                                 </div>
 
-                                <!-- TÉCNICO DE ENFERMAGEM -->
-                                <div class="membro-equipe" onclick="selecionarMembro(this)">
-                                    <div class="info-membro">
-                                        <input type="checkbox" class="checkbox-equipe" id="equipeTecnico" onclick="event.stopPropagation()">
-                                        <div class="nome-membro">
-                                            <i class="fas fa-user-nurse"></i> Técnico de Enfermagem
+                                <!-- NUTRIÇÃO -->
+                                <div class="team-member" onclick="toggleTeamMember(this)">
+                                    <div class="member-header">
+                                        <input type="checkbox" class="member-checkbox" id="teamNutricao" onclick="event.stopPropagation()">
+                                        <div class="member-name">
+                                            <i class="fas fa-utensils"></i> Nutrição
                                         </div>
                                     </div>
-                                    <div class="assinatura"></div>
+                                    <div class="signature-area">
+                                        <div class="signature-label">Assinatura e CRN</div>
+                                    </div>
                                 </div>
 
-                                <!-- NUTRICIONISTA -->
-                                <div class="membro-equipe" onclick="selecionarMembro(this)">
-                                    <div class="info-membro">
-                                        <input type="checkbox" class="checkbox-equipe" id="equipeNutricionista" onclick="event.stopPropagation()">
-                                        <div class="nome-membro">
-                                            <i class="fas fa-utensils"></i> Nutricionista
+                                <!-- FISIOTERAPIA -->
+                                <div class="team-member" onclick="toggleTeamMember(this)">
+                                    <div class="member-header">
+                                        <input type="checkbox" class="member-checkbox" id="teamFisioterapia" onclick="event.stopPropagation()">
+                                        <div class="member-name">
+                                            <i class="fas fa-lungs"></i> Fisioterapia
                                         </div>
                                     </div>
-                                    <div class="assinatura"></div>
+                                    <div class="signature-area">
+                                        <div class="signature-label">Assinatura e CREFITO</div>
+                                    </div>
                                 </div>
 
-                                <!-- FISIOTERAPEUTA -->
-                                <div class="membro-equipe" onclick="selecionarMembro(this)">
-                                    <div class="info-membro">
-                                        <input type="checkbox" class="checkbox-equipe" id="equipeFisioterapeuta" onclick="event.stopPropagation()">
-                                        <div class="nome-membro">
-                                            <i class="fas fa-lungs"></i> Fisioterapeuta
+                                <!-- CONTROLE DE INFECÇÃO -->
+                                <div class="team-member" onclick="toggleTeamMember(this)">
+                                    <div class="member-header">
+                                        <input type="checkbox" class="member-checkbox" id="teamInfeccao" onclick="event.stopPropagation()">
+                                        <div class="member-name">
+                                            <i class="fas fa-bacteria"></i> Controle de Infecção
                                         </div>
                                     </div>
-                                    <div class="assinatura"></div>
-                                </div>
-
-                                <!-- SERVIÇO SOCIAL -->
-                                <div class="membro-equipe" onclick="selecionarMembro(this)">
-                                    <div class="info-membro">
-                                        <input type="checkbox" class="checkbox-equipe" id="equipeServicoSocial" onclick="event.stopPropagation()">
-                                        <div class="nome-membro">
-                                            <i class="fas fa-hands-helping"></i> Serviço Social
-                                        </div>
+                                    <div class="signature-area">
+                                        <div class="signature-label">Assinatura</div>
                                     </div>
-                                    <div class="assinatura"></div>
-                                </div>
-
-                                <!-- PSICOLOGIA -->
-                                <div class="membro-equipe" onclick="selecionarMembro(this)">
-                                    <div class="info-membro">
-                                        <input type="checkbox" class="checkbox-equipe" id="equipePsicologia" onclick="event.stopPropagation()">
-                                        <div class="nome-membro">
-                                            <i class="fas fa-brain"></i> Psicologia
-                                        </div>
-                                    </div>
-                                    <div class="assinatura"></div>
                                 </div>
 
                                 <!-- FARMÁCIA CLÍNICA -->
-                                <div class="membro-equipe" onclick="selecionarMembro(this)">
-                                    <div class="info-membro">
-                                        <input type="checkbox" class="checkbox-equipe" id="equipeFarmacia" onclick="event.stopPropagation()">
-                                        <div class="nome-membro">
+                                <div class="team-member" onclick="toggleTeamMember(this)">
+                                    <div class="member-header">
+                                        <input type="checkbox" class="member-checkbox" id="teamFarmacia" onclick="event.stopPropagation()">
+                                        <div class="member-name">
                                             <i class="fas fa-pills"></i> Farmácia Clínica
                                         </div>
                                     </div>
-                                    <div class="assinatura"></div>
+                                    <div class="signature-area">
+                                        <div class="signature-label">Assinatura e CRF</div>
+                                    </div>
+                                </div>
+
+                                <!-- SERVIÇO SOCIAL -->
+                                <div class="team-member" onclick="toggleTeamMember(this)">
+                                    <div class="member-header">
+                                        <input type="checkbox" class="member-checkbox" id="teamSocial" onclick="event.stopPropagation()">
+                                        <div class="member-name">
+                                            <i class="fas fa-hands-helping"></i> Serviço Social
+                                        </div>
+                                    </div>
+                                    <div class="signature-area">
+                                        <div class="signature-label">Assinatura e CRESS</div>
+                                    </div>
+                                </div>
+
+                                <!-- PSICOLOGIA -->
+                                <div class="team-member" onclick="toggleTeamMember(this)">
+                                    <div class="member-header">
+                                        <input type="checkbox" class="member-checkbox" id="teamPsicologia" onclick="event.stopPropagation()">
+                                        <div class="member-name">
+                                            <i class="fas fa-brain"></i> Psicologia
+                                        </div>
+                                    </div>
+                                    <div class="signature-area">
+                                        <div class="signature-label">Assinatura e CRP</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- BOTÕES DE AÇÃO -->
-                        <div class="secao no-print">
-                            <div class="grupo-botoes">
-                                <button type="button" class="btn btn-primario" onclick="salvarPlano()">
+                        <div class="section no-print">
+                            <div class="action-buttons">
+                                <button type="button" class="btn btn-primary" onclick="salvarPlano()">
                                     <i class="fas fa-save"></i> Salvar Plano
                                 </button>
-                                <button type="button" class="btn btn-secundario" onclick="visualizarPlanoAtual()">
+                                <button type="button" class="btn btn-success" onclick="visualizarPlanoAtual()">
                                     <i class="fas fa-eye"></i> Visualizar Plano
                                 </button>
                                 <button type="reset" class="btn" style="background: #6c757d; color: white;" onclick="limparFormulario()">
                                     <i class="fas fa-redo"></i> Limpar Formulário
                                 </button>
-                                <button type="button" class="btn btn-terciario" onclick="carregarExemplo()">
+                                <button type="button" class="btn btn-warning" onclick="carregarExemplo()">
                                     <i class="fas fa-magic"></i> Dados de Exemplo
                                 </button>
                             </div>
@@ -880,87 +930,99 @@
                 </div>
 
                 <!-- ABA 2: LISTA DE PLANOS -->
-                <div id="abaLista" class="conteudo-aba">
-                    <div class="secao">
-                        <div class="titulo-secao">
-                            <i class="fas fa-folder-open"></i>
-                            Planos Terapêuticos Salvos
+                <div id="lista" class="tab-content">
+                    <div class="section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                            <div class="section-title">Planos Terapêuticos Salvos</div>
                         </div>
-                        <div id="listaPlanos" class="grid-planos">
-                            <!-- Planos serão carregados aqui dinamicamente -->
+                        <div id="plansList" class="plans-grid">
+                            <!-- Planos serão carregados aqui -->
                         </div>
-                        <div id="nenhumPlano" class="text-center" style="padding: 3rem; color: #666;">
-                            <i class="fas fa-folder-open fa-3x mb-3"></i>
-                            <h3 style="margin-bottom: 1rem;">Nenhum plano salvo</h3>
-                            <p>Clique na aba "Novo/Editar Plano" para criar seu primeiro plano terapêutico.</p>
+                        <div id="noPlans" class="text-center" style="padding: 4rem; color: #666;">
+                            <i class="fas fa-folder-open fa-4x mb-4"></i>
+                            <h3 style="margin-bottom: 1rem; color: var(--cinza-escuro);">Nenhum plano salvo</h3>
+                            <p style="font-size: 1.1rem;">Vá para a aba "Novo/Editar Plano" para criar seu primeiro plano terapêutico.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- ABA 3: VISUALIZAÇÃO -->
-                <div id="abaVisualizacao" class="conteudo-aba">
-                    <div class="secao">
-                        <div class="titulo-secao">
-                            <i class="fas fa-file-medical-alt"></i>
-                            Visualização do Plano Terapêutico
+                <!-- ABA 3: VISUALIZAR -->
+                <div id="visualizar" class="tab-content">
+                    <div class="section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-file-medical-alt"></i>
+                            </div>
+                            <div class="section-title">Visualização do Plano Terapêutico</div>
                         </div>
-                        <div id="visualizacaoPlano" class="visualizacao-plano">
-                            <div class="text-center" style="padding: 3rem; color: #666;">
-                                <i class="fas fa-search fa-3x mb-3"></i>
-                                <h3 style="margin-bottom: 1rem;">Selecione um plano para visualizar</h3>
-                                <p>Vá para a aba "Planos Salvos" e clique em um plano para visualizá-lo aqui.</p>
+                        <div id="planoView" class="plano-view">
+                            <div class="text-center" style="padding: 4rem; color: #666;">
+                                <i class="fas fa-search fa-4x mb-4"></i>
+                                <h3 style="margin-bottom: 1rem; color: var(--cinza-escuro);">Selecione um plano para visualizar</h3>
+                                <p style="font-size: 1.1rem;">Vá para a aba "Planos Salvos" e clique em um plano para visualizá-lo aqui.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- ABA 4: IMPRESSÃO/EXPORTAÇÃO -->
-                <div id="abaImpressao" class="conteudo-aba">
-                    <div class="secao">
-                        <div class="titulo-secao">
-                            <i class="fas fa-print"></i>
-                            Configuração de Impressão
+                <!-- ABA 4: IMPRIMIR -->
+                <div id="imprimir" class="tab-content">
+                    <div class="section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-print"></i>
+                            </div>
+                            <div class="section-title">Configuração de Impressão</div>
                         </div>
                         
-                        <div class="opcoes-impressao">
-                            <p style="margin-bottom: 1rem;"><strong>Selecione quais seções incluir na impressão:</strong></p>
-                            <div class="grid-opcoes">
-                                <label class="opcao-impressao">
-                                    <input type="checkbox" id="opcDados" checked> Dados do Paciente
+                        <div class="print-options">
+                            <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--cinza-escuro);">
+                                <strong>Selecione quais seções incluir na impressão:</strong><br>
+                                <small style="color: #666;">(Otimizado para economia de papel)</small>
+                            </p>
+                            <div class="print-checkboxes">
+                                <label class="print-option">
+                                    <input type="checkbox" id="printDados" checked> Dados do Paciente
                                 </label>
-                                <label class="opcao-impressao">
-                                    <input type="checkbox" id="opcDiagnostico" checked> Diagnóstico
+                                <label class="print-option">
+                                    <input type="checkbox" id="printDiagnostico" checked> Diagnóstico
                                 </label>
-                                <label class="opcao-impressao">
-                                    <input type="checkbox" id="opcSAPS" checked> SAPS III
+                                <label class="print-option">
+                                    <input type="checkbox" id="printSAPS" checked> SAPS III
                                 </label>
-                                <label class="opcao-impressao">
-                                    <input type="checkbox" id="opcMetas" checked> Metas Terapêuticas
+                                <label class="print-option">
+                                    <input type="checkbox" id="printMetas" checked> Metas Terapêuticas
                                 </label>
-                                <label class="opcao-impressao">
-                                    <input type="checkbox" id="opcEquipe" checked> Equipe
+                                <label class="print-option">
+                                    <input type="checkbox" id="printEquipe" checked> Equipe
                                 </label>
-                                <label class="opcao-impressao">
-                                    <input type="checkbox" id="opcAssinaturas" checked> Assinaturas
+                                <label class="print-option">
+                                    <input type="checkbox" id="printAssinaturas" checked> Assinaturas
                                 </label>
-                                <label class="opcao-impressao">
-                                    <input type="checkbox" id="opcLogo" checked> Logo do Hospital
+                                <label class="print-option">
+                                    <input type="checkbox" id="printLogo" checked> Logo do Hospital
+                                </label>
+                                <label class="print-option">
+                                    <input type="checkbox" id="printCompacto" checked> Modo Compacto
                                 </label>
                             </div>
                         </div>
 
-                        <div id="previewImpressao" class="visualizacao-plano" style="min-height: 300px;">
+                        <div id="printPreview" class="plano-view" style="min-height: 400px;">
                             <!-- Preview será gerado aqui -->
                         </div>
 
-                        <div class="grupo-botoes no-print">
-                            <button class="btn btn-primario" onclick="atualizarPreview()">
+                        <div class="action-buttons no-print">
+                            <button class="btn btn-primary" onclick="atualizarPrintPreview()">
                                 <i class="fas fa-sync"></i> Atualizar Preview
                             </button>
-                            <button class="btn btn-secundario" onclick="imprimirPlano()">
-                                <i class="fas fa-print"></i> Imprimir Plano
+                            <button class="btn btn-success" onclick="imprimirDocumento()">
+                                <i class="fas fa-print"></i> Imprimir Documento
                             </button>
-                            <button class="btn" style="background: #d32f2f; color: white;" onclick="exportarPDF()">
+                            <button class="btn" style="background: #d32f2f; color: white;" onclick="exportarParaPDF()">
                                 <i class="fas fa-file-pdf"></i> Exportar como PDF
                             </button>
                         </div>
@@ -969,73 +1031,79 @@
             </div>
 
             <!-- RODAPÉ -->
-            <div class="secao no-print" style="background: var(--cinza-claro); text-align: center; padding: 1rem;">
-                <p style="font-size: 0.9rem; color: #666;">
-                    <i class="fas fa-shield-alt"></i> Sistema desenvolvido para o São José Hospital - UTI Adulta | 
-                    Versão 1.0 | Dados armazenados localmente no navegador
+            <div class="section no-print" style="background: var(--cinza-claro); text-align: center; padding: 1.5rem;">
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">
+                    <i class="fas fa-hospital"></i> Hospital São José - UTI Adulta | 
+                    <i class="fas fa-code"></i> Sistema desenvolvido com tecnologia moderna
+                </p>
+                <p style="font-size: 0.8rem; color: #888;">
+                    © 2024 Sistema de Plano Terapêutico Singular | Versão 2.0 | 
+                    <i class="fas fa-cloud"></i> Hospedado gratuitamente no GitHub Pages
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL -->
+    <!-- SISTEMA JAVASCRIPT -->
     <script>
-        // VARIÁVEIS GLOBAIS
-        let planosSalvos = JSON.parse(localStorage.getItem('planosUTI')) || [];
+        // ===== VARIÁVEIS GLOBAIS =====
+        let planosSalvos = JSON.parse(localStorage.getItem('planosSaoJose')) || [];
         let planoAtual = null;
 
-        // INICIALIZAÇÃO
+        // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', function() {
             // Configurar data atual
-            document.getElementById('dataAdmissao').valueAsDate = new Date();
+            document.getElementById('admissao').valueAsDate = new Date();
             
             // Carregar planos salvos
             atualizarContador();
             carregarListaPlanos();
             
-            // Tentar restaurar último plano editado
-            const ultimoPlanoId = localStorage.getItem('ultimoPlanoEditado');
-            if (ultimoPlanoId) {
-                const plano = planosSalvos.find(p => p.id === ultimoPlanoId);
-                if (plano) {
-                    carregarPlano(plano.id);
-                }
+            // Restaurar último plano editado
+            const ultimoPlano = localStorage.getItem('ultimoPlanoEditado');
+            if (ultimoPlano) {
+                const plano = planosSalvos.find(p => p.id === ultimoPlano);
+                if (plano) carregarPlano(plano.id);
             }
+            
+            // Configurar exemplo para demonstração
+            setTimeout(() => {
+                if (planosSalvos.length === 0) {
+                    mostrarAlerta('Sistema pronto! Use "Dados de Exemplo" para testar.', 'success');
+                }
+            }, 1000);
         });
 
-        // FUNÇÕES DE NAVEGAÇÃO
-        function mudarAba(abaId) {
-            // Remover classe ativa de todas as abas
-            document.querySelectorAll('.aba').forEach(aba => {
-                aba.classList.remove('ativa');
+        // ===== FUNÇÕES DE NAVEGAÇÃO =====
+        function openTab(tabId) {
+            // Esconder todas as abas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
-            document.querySelectorAll('.conteudo-aba').forEach(conteudo => {
-                conteudo.classList.remove('ativa');
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
             
-            // Ativar aba clicada
-            event.currentTarget.classList.add('ativa');
-            document.getElementById('aba' + capitalizeFirst(abaId)).classList.add('ativa');
+            // Mostrar aba selecionada
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
             
-            // Ações específicas por aba
-            if (abaId === 'lista') {
+            // Ações específicas
+            if (tabId === 'lista') {
                 carregarListaPlanos();
-            } else if (abaId === 'impressao') {
-                atualizarPreview();
+            } else if (tabId === 'imprimir' && planoAtual) {
+                atualizarPrintPreview();
             }
         }
 
-        function capitalizeFirst(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        // FUNÇÕES DO FORMULÁRIO
-        function selecionarMembro(elemento) {
-            const checkbox = elemento.querySelector('.checkbox-equipe');
+        // ===== FUNÇÕES DA EQUIPE =====
+        function toggleTeamMember(element) {
+            const checkbox = element.querySelector('.member-checkbox');
             checkbox.checked = !checkbox.checked;
-            elemento.classList.toggle('selecionado', checkbox.checked);
+            element.classList.toggle('selected', checkbox.checked);
         }
 
+        // ===== CALCULAR SAPS III =====
         function calcularSAPS() {
             // Coletar valores
             const idade = parseFloat(document.getElementById('sapsIdade').value) || 0;
@@ -1044,10 +1112,8 @@
             const temp = parseFloat(document.getElementById('sapsTemp').value) || 0;
             const paO2 = parseFloat(document.getElementById('sapsPaO2').value) || 0;
             const glasgow = parseFloat(document.getElementById('sapsGlasgow').value) || 15;
-            const bilirrubina = parseFloat(document.getElementById('sapsBilirrubina').value) || 0;
-            const leucocitos = parseFloat(document.getElementById('sapsLeucocitos').value) || 0;
 
-            // Cálculo SAPS III (simplificado para demonstração)
+            // Cálculo SAPS III (simplificado)
             let score = 0;
             
             // Idade
@@ -1081,27 +1147,17 @@
             else if (paO2 < 200) score += 6;
             else if (paO2 < 300) score += 3;
             
-            // Escala de Glasgow
+            // Glasgow
             if (glasgow < 6) score += 26;
             else if (glasgow < 9) score += 13;
             else if (glasgow < 11) score += 7;
             else if (glasgow < 14) score += 5;
             
-            // Bilirrubina
-            if (bilirrubina > 4) score += 9;
-            else if (bilirrubina > 2) score += 4;
-            
-            // Leucócitos
-            if (leucocitos < 1) score += 12;
-            else if (leucocitos < 4) score += 5;
-            else if (leucocitos < 20) score += 0;
-            else score += 5;
-            
             // Calcular mortalidade estimada
             const logit = -7.7631 + 0.0737 * score + 0.9971 * Math.log(score + 1);
             const mortalidade = (Math.exp(logit) / (1 + Math.exp(logit))) * 100;
             
-            // Determinar gravidade
+            // Classificar gravidade
             let gravidade = 'Baixo Risco';
             let cor = '#2e7d32';
             
@@ -1114,206 +1170,211 @@
             }
             
             // Atualizar resultado
-            const resultado = document.getElementById('resultadoSAPS');
+            const resultado = document.getElementById('sapsResult');
             resultado.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <strong>SAPS III:</strong> ${Math.round(score)} pontos
-                        | <strong>Mortalidade estimada:</strong> ${mortalidade.toFixed(1)}%
+                        <strong>SAPS III:</strong> ${Math.round(score)} pontos | 
+                        <strong>Mortalidade estimada:</strong> ${mortalidade.toFixed(1)}%
                     </div>
-                    <div style="color: ${cor}; font-weight: bold;">
+                    <div style="color: ${cor}; font-weight: bold; background: ${cor}15; padding: 5px 15px; border-radius: 20px;">
                         ${gravidade}
                     </div>
                 </div>
             `;
             
-            mostrarMensagem('SAPS III calculado com sucesso!', 'sucesso');
+            mostrarAlerta('SAPS III calculado com sucesso!', 'success');
             
             return Math.round(score);
         }
 
-        // SALVAR PLANO
+        // ===== SALVAR PLANO =====
         function salvarPlano() {
             // Validar campos obrigatórios
-            const camposObrigatorios = ['nomePaciente', 'idade', 'sexo', 'dataAdmissao', 'diagnostico', 'metaDiaria'];
+            const camposObrigatorios = ['nome', 'idade', 'sexo', 'admissao', 'diagnostico', 'metaDiaria'];
             let valido = true;
             
             camposObrigatorios.forEach(id => {
                 const campo = document.getElementById(id);
                 if (!campo.value.trim()) {
-                    campo.classList.add('campo-invalido');
+                    campo.style.borderColor = 'var(--vermelho-perigo)';
                     valido = false;
                 } else {
-                    campo.classList.remove('campo-invalido');
+                    campo.style.borderColor = '';
                 }
             });
             
             if (!valido) {
-                mostrarMensagem('Preencha todos os campos obrigatórios!', 'erro');
+                mostrarAlerta('Preencha todos os campos obrigatórios!', 'error');
                 return;
             }
             
-            // Coletar dados do plano
+            // Coletar dados
             const plano = {
                 id: document.getElementById('planoId').value || 'plano_' + Date.now(),
-                nome: document.getElementById('nomePaciente').value,
+                nome: document.getElementById('nome').value,
                 idade: document.getElementById('idade').value,
                 sexo: document.getElementById('sexo').value,
                 leito: document.getElementById('leito').value,
-                dataAdmissao: document.getElementById('dataAdmissao').value,
+                admissao: document.getElementById('admissao').value,
                 registro: document.getElementById('registro').value,
                 diagnostico: document.getElementById('diagnostico').value,
                 historia: document.getElementById('historia').value,
-                saps: document.getElementById('resultadoSAPS').innerHTML,
+                saps: document.getElementById('sapsResult').innerHTML,
                 metaDiaria: document.getElementById('metaDiaria').value,
                 metaAnterior: document.getElementById('metaAnterior').value,
                 pendencias: document.getElementById('pendencias').value,
                 equipe: {
-                    medico: document.getElementById('equipeMedico').checked,
-                    enfermeiro: document.getElementById('equipeEnfermeiro').checked,
-                    tecnico: document.getElementById('equipeTecnico').checked,
-                    nutricionista: document.getElementById('equipeNutricionista').checked,
-                    fisioterapeuta: document.getElementById('equipeFisioterapeuta').checked,
-                    servicoSocial: document.getElementById('equipeServicoSocial').checked,
-                    psicologia: document.getElementById('equipePsicologia').checked,
-                    farmacia: document.getElementById('equipeFarmacia').checked
+                    medico: document.getElementById('teamMedico').checked,
+                    enfermagem: document.getElementById('teamEnfermagem').checked,
+                    nutricao: document.getElementById('teamNutricao').checked,
+                    fisioterapia: document.getElementById('teamFisioterapia').checked,
+                    infeccao: document.getElementById('teamInfeccao').checked,
+                    farmacia: document.getElementById('teamFarmacia').checked,
+                    social: document.getElementById('teamSocial').checked,
+                    psicologia: document.getElementById('teamPsicologia').checked
                 },
                 dataCriacao: new Date().toISOString(),
-                dataAtualizacao: new Date().toLocaleDateString('pt-BR')
+                dataAtualizacao: new Date().toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
             };
             
             // Verificar se é edição
             const index = planosSalvos.findIndex(p => p.id === plano.id);
             
             if (index !== -1) {
-                // Atualizar plano existente
                 planosSalvos[index] = plano;
-                mostrarMensagem('Plano atualizado com sucesso!', 'sucesso');
+                mostrarAlerta('Plano atualizado com sucesso!', 'success');
             } else {
-                // Adicionar novo plano
                 planosSalvos.unshift(plano);
-                mostrarMensagem('Plano salvo com sucesso!', 'sucesso');
+                mostrarAlerta('Plano salvo com sucesso!', 'success');
             }
             
             // Salvar no localStorage
-            localStorage.setItem('planosUTI', JSON.stringify(planosSalvos));
+            localStorage.setItem('planosSaoJose', JSON.stringify(planosSalvos));
             
-            // Atualizar contador
+            // Atualizar interface
             atualizarContador();
-            
-            // Atualizar lista
             carregarListaPlanos();
             
-            // Salvar referência do plano atual
+            // Definir como plano atual
             planoAtual = plano;
             localStorage.setItem('ultimoPlanoEditado', plano.id);
             
-            // Ir para aba de lista
-            setTimeout(() => mudarAba('lista'), 1000);
+            // Ir para lista após 1 segundo
+            setTimeout(() => openTab('lista'), 1000);
         }
 
-        // CARREGAR PLANO PARA EDIÇÃO
+        // ===== CARREGAR PLANO =====
         function carregarPlano(id) {
             const plano = planosSalvos.find(p => p.id === id);
             if (!plano) return;
             
             // Preencher formulário
             document.getElementById('planoId').value = plano.id;
-            document.getElementById('nomePaciente').value = plano.nome;
+            document.getElementById('nome').value = plano.nome;
             document.getElementById('idade').value = plano.idade;
             document.getElementById('sexo').value = plano.sexo;
             document.getElementById('leito').value = plano.leito || '';
-            document.getElementById('dataAdmissao').value = plano.dataAdmissao;
+            document.getElementById('admissao').value = plano.admissao;
             document.getElementById('registro').value = plano.registro || '';
             document.getElementById('diagnostico').value = plano.diagnostico;
             document.getElementById('historia').value = plano.historia || '';
-            document.getElementById('resultadoSAPS').innerHTML = plano.saps || 'SAPS III: Não calculado | Mortalidade estimada: --%';
+            document.getElementById('sapsResult').innerHTML = plano.saps || 'SAPS III: -- | Mortalidade estimada: --% | Classificação: --';
             document.getElementById('metaDiaria').value = plano.metaDiaria;
             document.getElementById('metaAnterior').value = plano.metaAnterior || '';
             document.getElementById('pendencias').value = plano.pendencias || '';
             
             // Preencher equipe
             if (plano.equipe) {
-                document.getElementById('equipeMedico').checked = plano.equipe.medico || false;
-                document.getElementById('equipeEnfermeiro').checked = plano.equipe.enfermeiro || false;
-                document.getElementById('equipeTecnico').checked = plano.equipe.tecnico || false;
-                document.getElementById('equipeNutricionista').checked = plano.equipe.nutricionista || false;
-                document.getElementById('equipeFisioterapeuta').checked = plano.equipe.fisioterapeuta || false;
-                document.getElementById('equipeServicoSocial').checked = plano.equipe.servicoSocial || false;
-                document.getElementById('equipePsicologia').checked = plano.equipe.psicologia || false;
-                document.getElementById('equipeFarmacia').checked = plano.equipe.farmacia || false;
+                document.getElementById('teamMedico').checked = plano.equipe.medico || false;
+                document.getElementById('teamEnfermagem').checked = plano.equipe.enfermagem || false;
+                document.getElementById('teamNutricao').checked = plano.equipe.nutricao || false;
+                document.getElementById('teamFisioterapia').checked = plano.equipe.fisioterapia || false;
+                document.getElementById('teamInfeccao').checked = plano.equipe.infeccao || false;
+                document.getElementById('teamFarmacia').checked = plano.equipe.farmacia || false;
+                document.getElementById('teamSocial').checked = plano.equipe.social || false;
+                document.getElementById('teamPsicologia').checked = plano.equipe.psicologia || false;
                 
-                // Atualizar classes dos membros selecionados
-                atualizarSelecaoEquipe();
+                // Atualizar visual dos membros
+                atualizarVisualEquipe();
             }
             
             planoAtual = plano;
             
             // Ir para aba de edição
-            mudarAba('edicao');
+            openTab('editar');
         }
 
-        // ATUALIZAR SELEÇÃO DA EQUIPE
-        function atualizarSelecaoEquipe() {
-            const membros = document.querySelectorAll('.membro-equipe');
-            membros.forEach(membro => {
-                const checkbox = membro.querySelector('.checkbox-equipe');
-                membro.classList.toggle('selecionado', checkbox.checked);
+        function atualizarVisualEquipe() {
+            document.querySelectorAll('.team-member').forEach(membro => {
+                const checkbox = membro.querySelector('.member-checkbox');
+                membro.classList.toggle('selected', checkbox.checked);
             });
         }
 
-        // CARREGAR LISTA DE PLANOS
+        // ===== LISTAR PLANOS =====
         function carregarListaPlanos() {
-            const container = document.getElementById('listaPlanos');
-            const nenhumPlano = document.getElementById('nenhumPlano');
+            const container = document.getElementById('plansList');
+            const noPlans = document.getElementById('noPlans');
             
             if (planosSalvos.length === 0) {
                 container.innerHTML = '';
-                nenhumPlano.style.display = 'block';
+                noPlans.style.display = 'block';
                 return;
             }
             
-            nenhumPlano.style.display = 'none';
+            noPlans.style.display = 'none';
             container.innerHTML = '';
             
-            // Ordenar por data de criação (mais recente primeiro)
+            // Ordenar do mais recente para o mais antigo
             planosSalvos.sort((a, b) => new Date(b.dataCriacao) - new Date(a.dataCriacao));
             
-            // Criar cards para cada plano
+            // Criar cards
             planosSalvos.forEach(plano => {
                 const card = document.createElement('div');
-                card.className = 'cartao-plano';
-                card.onclick = () => selecionarPlano(plano.id);
+                card.className = 'plan-card';
+                card.onclick = () => selecionarPlanoLista(plano.id);
                 
                 card.innerHTML = `
-                    <div class="cabecalho-plano">
-                        <h4 style="margin: 0; font-size: 1.1rem;">${plano.nome}</h4>
-                        ${plano.leito ? `<span class="badge-leito">${plano.leito}</span>` : ''}
+                    <div class="plan-header">
+                        <h4 style="margin: 0; font-size: 1.2rem; color: var(--azul-hospital);">
+                            ${plano.nome}
+                        </h4>
+                        ${plano.leito ? `<span class="bed-badge">${plano.leito}</span>` : ''}
                     </div>
-                    <p style="margin-bottom: 8px; color: #666;">
-                        <i class="fas fa-user"></i> ${plano.idade} anos | ${plano.sexo === 'M' ? 'Masculino' : 'Feminino'}
-                    </p>
-                    <p style="margin-bottom: 8px; color: #666;">
-                        <i class="fas fa-calendar"></i> Admitido em: ${new Date(plano.dataAdmissao).toLocaleDateString('pt-BR')}
-                    </p>
-                    <p style="margin-bottom: 15px; font-size: 0.9rem; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                        <strong>Diagnóstico:</strong> ${plano.diagnostico.substring(0, 100)}${plano.diagnostico.length > 100 ? '...' : ''}
-                    </p>
-                    <div style="display: flex; gap: 10px; margin-top: 15px;">
-                        <button class="btn" onclick="editarPlano('${plano.id}'); event.stopPropagation();" 
-                                style="padding: 6px 12px; font-size: 0.85rem; background: var(--azul-hospital); color: white; flex: 1;">
+                    <div style="margin-bottom: 1rem;">
+                        <p style="color: #666; margin-bottom: 8px;">
+                            <i class="fas fa-user"></i> ${plano.idade} anos | 
+                            ${plano.sexo === 'M' ? 'Masculino' : 'Feminino'}
+                        </p>
+                        <p style="color: #666; margin-bottom: 8px;">
+                            <i class="fas fa-calendar"></i> Admitido: ${new Date(plano.admissao).toLocaleDateString('pt-BR')}
+                        </p>
+                        <p style="color: #333; font-size: 0.95rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            <strong>Diagnóstico:</strong> ${plano.diagnostico.substring(0, 120)}${plano.diagnostico.length > 120 ? '...' : ''}
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 1.5rem;">
+                        <button class="btn" onclick="editarPlanoLista('${plano.id}'); event.stopPropagation();" 
+                                style="padding: 8px 15px; font-size: 0.9rem; background: var(--azul-hospital); color: white; flex: 1;">
                             <i class="fas fa-edit"></i> Editar
                         </button>
-                        <button class="btn" onclick="visualizarPlano('${plano.id}'); event.stopPropagation();" 
-                                style="padding: 6px 12px; font-size: 0.85rem; background: var(--verde-sucesso); color: white; flex: 1;">
-                            <i class="fas fa-eye"></i> Ver
+                        <button class="btn" onclick="visualizarPlanoLista('${plano.id}'); event.stopPropagation();" 
+                                style="padding: 8px 15px; font-size: 0.9rem; background: var(--verde-sucesso); color: white; flex: 1;">
+                            <i class="fas fa-eye"></i> Visualizar
                         </button>
-                        <button class="btn" onclick="excluirPlano('${plano.id}'); event.stopPropagation();" 
-                                style="padding: 6px 12px; font-size: 0.85rem; background: var(--vermelho-perigo); color: white;">
+                        <button class="btn" onclick="excluirPlanoLista('${plano.id}'); event.stopPropagation();" 
+                                style="padding: 8px 15px; font-size: 0.9rem; background: var(--vermelho-perigo); color: white;">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
-                    <div style="margin-top: 10px; font-size: 0.8rem; color: #666; text-align: right;">
+                    <div style="margin-top: 1rem; font-size: 0.8rem; color: #888; text-align: right;">
                         Atualizado: ${plano.dataAtualizacao}
                     </div>
                 `;
@@ -1322,200 +1383,203 @@
             });
         }
 
-        // FUNÇÕES DE GERENCIAMENTO
-        function selecionarPlano(id) {
+        function selecionarPlanoLista(id) {
             const plano = planosSalvos.find(p => p.id === id);
             if (plano) {
-                visualizarPlano(id);
-                mudarAba('visualizacao');
+                visualizarPlanoLista(id);
+                openTab('visualizar');
             }
         }
 
-        function editarPlano(id) {
+        function editarPlanoLista(id) {
             carregarPlano(id);
         }
 
-        function visualizarPlano(id) {
+        function visualizarPlanoLista(id) {
             const plano = planosSalvos.find(p => p.id === id);
             if (!plano) return;
             
-            const container = document.getElementById('visualizacaoPlano');
+            const container = document.getElementById('planoView');
             
             container.innerHTML = `
-                <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--azul-claro);">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <div style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--azul-claro);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
                         <div>
-                            <h2 style="color: var(--azul-hospital); margin-bottom: 0.5rem;">Plano Terapêutico Singular</h2>
-                            <p style="color: #666;">São José Hospital - Unidade de Terapia Intensiva</p>
+                            <h2 style="color: var(--azul-hospital); margin-bottom: 0.5rem; font-size: 1.8rem;">
+                                Plano Terapêutico Singular
+                            </h2>
+                            <p style="color: #666; font-size: 1.1rem;">
+                                Hospital São José - Unidade de Terapia Intensiva Adulta
+                            </p>
                         </div>
                         <div style="text-align: right;">
-                            <div style="background: var(--azul-claro); padding: 8px 15px; border-radius: 8px; display: inline-block;">
-                                <strong>Data:</strong> ${new Date().toLocaleDateString('pt-BR')}
+                            <div style="background: var(--azul-claro); padding: 10px 20px; border-radius: 10px; display: inline-block;">
+                                <strong>Data do documento:</strong> ${new Date().toLocaleDateString('pt-BR')}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="secao-visualizacao imprimir">
-                    <div class="titulo-visualizacao">
+                <div class="view-section">
+                    <div class="view-title">
                         <i class="fas fa-user-injured"></i> Dados do Paciente
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-top: 1.2rem;">
                         <div><strong>Nome:</strong> ${plano.nome}</div>
                         <div><strong>Idade:</strong> ${plano.idade} anos</div>
                         <div><strong>Sexo:</strong> ${plano.sexo === 'M' ? 'Masculino' : 'Feminino'}</div>
                         <div><strong>Leito:</strong> ${plano.leito || 'Não informado'}</div>
-                        <div><strong>Admissão:</strong> ${new Date(plano.dataAdmissao).toLocaleDateString('pt-BR')}</div>
+                        <div><strong>Admissão:</strong> ${new Date(plano.admissao).toLocaleDateString('pt-BR')}</div>
                         <div><strong>Registro:</strong> ${plano.registro || 'Não informado'}</div>
                     </div>
                 </div>
 
-                <div class="secao-visualizacao imprimir">
-                    <div class="titulo-visualizacao">
+                <div class="view-section">
+                    <div class="view-title">
                         <i class="fas fa-stethoscope"></i> Avaliação Clínica
                     </div>
-                    <div style="margin-top: 1rem;">
-                        <p><strong>Diagnóstico Principal:</strong></p>
-                        <div style="background: var(--cinza-claro); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; white-space: pre-line;">
+                    <div style="margin-top: 1.2rem;">
+                        <p style="margin-bottom: 0.8rem;"><strong>Diagnóstico Principal:</strong></p>
+                        <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 10px; margin-bottom: 1.5rem; white-space: pre-line;">
                             ${plano.diagnostico}
                         </div>
                         
                         ${plano.historia ? `
-                        <p><strong>História Pregressa:</strong></p>
-                        <div style="background: var(--cinza-claro); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; white-space: pre-line;">
+                        <p style="margin-bottom: 0.8rem;"><strong>História Pregressa:</strong></p>
+                        <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 10px; margin-bottom: 1.5rem; white-space: pre-line;">
                             ${plano.historia}
                         </div>
                         ` : ''}
                     </div>
                 </div>
 
-                <div class="secao-visualizacao imprimir">
-                    <div class="titulo-visualizacao">
+                <div class="view-section">
+                    <div class="view-title">
                         <i class="fas fa-calculator"></i> Escala SAPS III
                     </div>
-                    <div style="margin-top: 1rem;">
-                        <div style="background: var(--azul-claro); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--azul-hospital);">
-                            ${plano.saps || 'SAPS III: Não calculado | Mortalidade estimada: --%'}
+                    <div style="margin-top: 1.2rem;">
+                        <div style="background: var(--azul-claro); padding: 1.2rem; border-radius: 10px; border-left: 5px solid var(--azul-hospital);">
+                            ${plano.saps || 'SAPS III: Não calculado'}
                         </div>
                     </div>
                 </div>
 
-                <div class="secao-visualizacao imprimir">
-                    <div class="titulo-visualizacao">
+                <div class="view-section">
+                    <div class="view-title">
                         <i class="fas fa-bullseye"></i> Metas Terapêuticas
                     </div>
-                    <div style="margin-top: 1rem;">
-                        <p><strong>Meta Diária:</strong></p>
-                        <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; white-space: pre-line;">
+                    <div style="margin-top: 1.2rem;">
+                        <p style="margin-bottom: 0.8rem;"><strong>Meta Diária:</strong></p>
+                        <div style="background: #f0f9ff; padding: 1.2rem; border-radius: 10px; margin-bottom: 1.5rem; white-space: pre-line;">
                             ${plano.metaDiaria}
                         </div>
                         
                         ${plano.metaAnterior ? `
-                        <p><strong>Meta Anterior:</strong></p>
-                        <div style="background: var(--cinza-claro); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; white-space: pre-line;">
+                        <p style="margin-bottom: 0.8rem;"><strong>Meta Anterior:</strong></p>
+                        <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 10px; margin-bottom: 1.5rem; white-space: pre-line;">
                             ${plano.metaAnterior}
                         </div>
                         ` : ''}
                         
                         ${plano.pendencias ? `
-                        <p><strong>Pendências:</strong></p>
-                        <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; white-space: pre-line;">
+                        <p style="margin-bottom: 0.8rem;"><strong>Pendências:</strong></p>
+                        <div style="background: #fff3cd; padding: 1.2rem; border-radius: 10px; white-space: pre-line;">
                             ${plano.pendencias}
                         </div>
                         ` : ''}
                     </div>
                 </div>
 
-                <div class="secao-visualizacao imprimir">
-                    <div class="titulo-visualizacao">
+                <div class="view-section">
+                    <div class="view-title">
                         <i class="fas fa-users"></i> Equipe Multiprofissional
                     </div>
-                    <div style="margin-top: 1rem;">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div style="margin-top: 1.2rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
                             ${plano.equipe.medico ? `
                             <div>
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">
+                                <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--azul-hospital);">
                                     <i class="fas fa-user-md"></i> Médico Intensivista
                                 </div>
-                                <div style="height: 50px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 35px;">Assinatura</div>
+                                <div style="height: 60px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
+                                    <div style="font-size: 0.85rem; color: #666; margin-top: 40px;">Assinatura</div>
                                 </div>
                             </div>
                             ` : ''}
                             
-                            ${plano.equipe.enfermeiro ? `
+                            ${plano.equipe.enfermagem ? `
                             <div>
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">
-                                    <i class="fas fa-user-nurse"></i> Enfermeiro
+                                <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--azul-hospital);">
+                                    <i class="fas fa-user-nurse"></i> Enfermagem
                                 </div>
-                                <div style="height: 50px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 35px;">Assinatura</div>
+                                <div style="height: 60px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
+                                    <div style="font-size: 0.85rem; color: #666; margin-top: 40px;">Assinatura</div>
                                 </div>
                             </div>
                             ` : ''}
                             
-                            ${plano.equipe.tecnico ? `
+                            ${plano.equipe.nutricao ? `
                             <div>
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">
-                                    <i class="fas fa-user-nurse"></i> Téc. Enfermagem
+                                <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--azul-hospital);">
+                                    <i class="fas fa-utensils"></i> Nutrição
                                 </div>
-                                <div style="height: 50px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 35px;">Assinatura</div>
+                                <div style="height: 60px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
+                                    <div style="font-size: 0.85rem; color: #666; margin-top: 40px;">Assinatura</div>
                                 </div>
                             </div>
                             ` : ''}
                             
-                            ${plano.equipe.nutricionista ? `
+                            ${plano.equipe.fisioterapia ? `
                             <div>
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">
-                                    <i class="fas fa-utensils"></i> Nutricionista
+                                <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--azul-hospital);">
+                                    <i class="fas fa-lungs"></i> Fisioterapia
                                 </div>
-                                <div style="height: 50px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 35px;">Assinatura</div>
+                                <div style="height: 60px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
+                                    <div style="font-size: 0.85rem; color: #666; margin-top: 40px;">Assinatura</div>
                                 </div>
                             </div>
                             ` : ''}
                             
-                            ${plano.equipe.fisioterapeuta ? `
+                            ${plano.equipe.infeccao ? `
                             <div>
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">
-                                    <i class="fas fa-lungs"></i> Fisioterapeuta
+                                <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--azul-hospital);">
+                                    <i class="fas fa-bacteria"></i> Controle de Infecção
                                 </div>
-                                <div style="height: 50px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 35px;">Assinatura</div>
-                                </div>
-                            </div>
-                            ` : ''}
-                            
-                            ${plano.equipe.servicoSocial ? `
-                            <div>
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">
-                                    <i class="fas fa-hands-helping"></i> Serviço Social
-                                </div>
-                                <div style="height: 50px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 35px;">Assinatura</div>
-                                </div>
-                            </div>
-                            ` : ''}
-                            
-                            ${plano.equipe.psicologia ? `
-                            <div>
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">
-                                    <i class="fas fa-brain"></i> Psicologia
-                                </div>
-                                <div style="height: 50px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 35px;">Assinatura</div>
+                                <div style="height: 60px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
+                                    <div style="font-size: 0.85rem; color: #666; margin-top: 40px;">Assinatura</div>
                                 </div>
                             </div>
                             ` : ''}
                             
                             ${plano.equipe.farmacia ? `
                             <div>
-                                <div style="font-weight: 600; margin-bottom: 0.5rem;">
+                                <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--azul-hospital);">
                                     <i class="fas fa-pills"></i> Farmácia Clínica
                                 </div>
-                                <div style="height: 50px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 35px;">Assinatura</div>
+                                <div style="height: 60px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
+                                    <div style="font-size: 0.85rem; color: #666; margin-top: 40px;">Assinatura</div>
+                                </div>
+                            </div>
+                            ` : ''}
+                            
+                            ${plano.equipe.social ? `
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--azul-hospital);">
+                                    <i class="fas fa-hands-helping"></i> Serviço Social
+                                </div>
+                                <div style="height: 60px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
+                                    <div style="font-size: 0.85rem; color: #666; margin-top: 40px;">Assinatura</div>
+                                </div>
+                            </div>
+                            ` : ''}
+                            
+                            ${plano.equipe.psicologia ? `
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--azul-hospital);">
+                                    <i class="fas fa-brain"></i> Psicologia
+                                </div>
+                                <div style="height: 60px; border-bottom: 2px dashed #666; margin-top: 0.5rem;">
+                                    <div style="font-size: 0.85rem; color: #666; margin-top: 40px;">Assinatura</div>
                                 </div>
                             </div>
                             ` : ''}
@@ -1523,17 +1587,20 @@
                     </div>
                 </div>
 
-                <div style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--cinza-medio); color: #666; font-size: 0.9rem; text-align: center;">
-                    <p>Documento gerado pelo Sistema de Plano Terapêutico Singular - São José Hospital</p>
+                <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--cinza-medio); color: #666; font-size: 0.9rem; text-align: center;">
+                    <p>Documento gerado pelo Sistema de Plano Terapêutico Singular - Hospital São José</p>
                     <p>Última atualização: ${plano.dataAtualizacao}</p>
                 </div>
                 
-                <div class="no-print" style="margin-top: 2rem; display: flex; gap: 1rem;">
-                    <button class="btn btn-primario" onclick="editarPlano('${plano.id}')">
+                <div class="no-print" style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="editarPlanoLista('${plano.id}')">
                         <i class="fas fa-edit"></i> Editar Plano
                     </button>
-                    <button class="btn btn-secundario" onclick="mudarAba('impressao')">
+                    <button class="btn btn-success" onclick="openTab('imprimir')">
                         <i class="fas fa-print"></i> Imprimir/Exportar
+                    </button>
+                    <button class="btn" style="background: #6c757d; color: white;" onclick="openTab('lista')">
+                        <i class="fas fa-arrow-left"></i> Voltar para Lista
                     </button>
                 </div>
             `;
@@ -1543,22 +1610,21 @@
 
         function visualizarPlanoAtual() {
             if (!planoAtual) {
-                mostrarMensagem('Primeiro salve ou selecione um plano para visualizar', 'erro');
+                mostrarAlerta('Primeiro salve ou selecione um plano para visualizar', 'error');
                 return;
             }
-            visualizarPlano(planoAtual.id);
-            mudarAba('visualizacao');
+            visualizarPlanoLista(planoAtual.id);
+            openTab('visualizar');
         }
 
-        function excluirPlano(id) {
+        function excluirPlanoLista(id) {
             if (confirm('Tem certeza que deseja excluir este plano? Esta ação não pode ser desfeita.')) {
                 planosSalvos = planosSalvos.filter(p => p.id !== id);
-                localStorage.setItem('planosUTI', JSON.stringify(planosSalvos));
+                localStorage.setItem('planosSaoJose', JSON.stringify(planosSalvos));
                 carregarListaPlanos();
                 atualizarContador();
-                mostrarMensagem('Plano excluído com sucesso!', 'sucesso');
+                mostrarAlerta('Plano excluído com sucesso!', 'success');
                 
-                // Se era o plano atual, limpar referência
                 if (planoAtual && planoAtual.id === id) {
                     planoAtual = null;
                     localStorage.removeItem('ultimoPlanoEditado');
@@ -1566,64 +1632,66 @@
             }
         }
 
-        // IMPRESSÃO E EXPORTAÇÃO
-        function atualizarPreview() {
+        // ===== IMPRESSÃO =====
+        function atualizarPrintPreview() {
             if (!planoAtual) {
-                document.getElementById('previewImpressao').innerHTML = `
-                    <div class="text-center" style="padding: 2rem; color: #666;">
-                        <i class="fas fa-info-circle fa-2x mb-3"></i>
-                        <p>Selecione um plano na aba "Planos Salvos" para visualizar as opções de impressão.</p>
+                document.getElementById('printPreview').innerHTML = `
+                    <div class="text-center" style="padding: 3rem; color: #666;">
+                        <i class="fas fa-info-circle fa-3x mb-3"></i>
+                        <h3 style="margin-bottom: 1rem;">Nenhum plano selecionado</h3>
+                        <p>Selecione um plano na aba "Planos Salvos" para configurar a impressão.</p>
                     </div>
                 `;
                 return;
             }
             
-            // Obter opções selecionadas
+            // Obter opções
             const opcoes = {
-                dados: document.getElementById('opcDados').checked,
-                diagnostico: document.getElementById('opcDiagnostico').checked,
-                saps: document.getElementById('opcSAPS').checked,
-                metas: document.getElementById('opcMetas').checked,
-                equipe: document.getElementById('opcEquipe').checked,
-                assinaturas: document.getElementById('opcAssinaturas').checked,
-                logo: document.getElementById('opcLogo').checked
+                dados: document.getElementById('printDados').checked,
+                diagnostico: document.getElementById('printDiagnostico').checked,
+                saps: document.getElementById('printSAPS').checked,
+                metas: document.getElementById('printMetas').checked,
+                equipe: document.getElementById('printEquipe').checked,
+                assinaturas: document.getElementById('printAssinaturas').checked,
+                logo: document.getElementById('printLogo').checked,
+                compacto: document.getElementById('printCompacto').checked
             };
             
-            const preview = document.getElementById('previewImpressao');
+            const preview = document.getElementById('printPreview');
             
             let html = `
-                <div style="font-size: 11pt; line-height: 1.4;">
-                    ${opcoes.logo ? `
-                    <div style="text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--azul-claro);">
-                        <div style="display: inline-block; background: var(--azul-hospital); color: white; padding: 15px 30px; border-radius: 10px; margin-bottom: 10px;">
-                            <div style="font-size: 18pt; font-weight: bold;">SÃO JOSÉ</div>
-                            <div style="font-size: 14pt;">HOSPITAL</div>
-                        </div>
-                        <div style="margin-top: 10px;">
-                            <strong>Unidade de Terapia Intensiva Adulta</strong><br>
-                            Plano Terapêutico Singular
-                        </div>
-                    </div>
-                    ` : ''}
-                    
-                    <div style="text-align: right; margin-bottom: 1rem; font-size: 10pt; color: #666;">
-                        Documento gerado em: ${new Date().toLocaleDateString('pt-BR')}
-                    </div>
+                <div style="font-size: ${opcoes.compacto ? '10pt' : '11pt'}; line-height: ${opcoes.compacto ? '1.3' : '1.5'};">
             `;
+            
+            if (opcoes.logo) {
+                html += `
+                    <div style="text-align: center; margin-bottom: ${opcoes.compacto ? '1rem' : '1.5rem'}; padding-bottom: ${opcoes.compacto ? '0.8rem' : '1rem'}; border-bottom: 1px solid var(--azul-claro);">
+                        <div style="font-weight: bold; color: var(--azul-hospital); font-size: ${opcoes.compacto ? '14pt' : '16pt'}; margin-bottom: 5px;">
+                            HOSPITAL SÃO JOSÉ
+                        </div>
+                        <div style="font-size: ${opcoes.compacto ? '10pt' : '11pt'}; color: #666;">
+                            Unidade de Terapia Intensiva Adulta - Plano Terapêutico Singular
+                        </div>
+                        <div style="font-size: 9pt; color: #888; margin-top: 5px;">
+                            Documento otimizado para economia de papel
+                        </div>
+                    </div>
+                `;
+            }
             
             if (opcoes.dados) {
                 html += `
-                    <div class="secao-visualizacao imprimir" style="margin-bottom: 1.5rem; page-break-inside: avoid;">
-                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">
+                    <div class="view-section print-include" style="margin-bottom: ${opcoes.compacto ? '0.8rem' : '1.2rem'};">
+                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-bottom: 8px; font-size: ${opcoes.compacto ? '10.5pt' : '11.5pt'};">
                             DADOS DO PACIENTE
                         </div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; font-size: 10.5pt;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; font-size: ${opcoes.compacto ? '9.5pt' : '10pt'};">
                             <div><strong>Nome:</strong> ${planoAtual.nome}</div>
                             <div><strong>Idade:</strong> ${planoAtual.idade} anos</div>
                             <div><strong>Sexo:</strong> ${planoAtual.sexo === 'M' ? 'Masculino' : 'Feminino'}</div>
-                            <div><strong>Leito:</strong> ${planoAtual.leito || 'Não informado'}</div>
-                            <div><strong>Admissão:</strong> ${new Date(planoAtual.dataAdmissao).toLocaleDateString('pt-BR')}</div>
-                            <div><strong>Registro:</strong> ${planoAtual.registro || 'Não informado'}</div>
+                            <div><strong>Leito:</strong> ${planoAtual.leito || 'N/I'}</div>
+                            <div><strong>Admissão:</strong> ${new Date(planoAtual.admissao).toLocaleDateString('pt-BR')}</div>
+                            <div><strong>Registro:</strong> ${planoAtual.registro || 'N/I'}</div>
                         </div>
                     </div>
                 `;
@@ -1631,18 +1699,18 @@
             
             if (opcoes.diagnostico) {
                 html += `
-                    <div class="secao-visualizacao imprimir" style="margin-bottom: 1.5rem; page-break-inside: avoid;">
-                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">
+                    <div class="view-section print-include" style="margin-bottom: ${opcoes.compacto ? '0.8rem' : '1.2rem'};">
+                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-bottom: 8px; font-size: ${opcoes.compacto ? '10.5pt' : '11.5pt'};">
                             AVALIAÇÃO CLÍNICA
                         </div>
-                        <div style="font-size: 10.5pt;">
-                            <div style="margin-bottom: 10px;"><strong>Diagnóstico Principal:</strong></div>
-                            <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 10pt;">
+                        <div style="font-size: ${opcoes.compacto ? '9.5pt' : '10pt'};">
+                            <div style="margin-bottom: 5px;"><strong>Diagnóstico Principal:</strong></div>
+                            <div style="background: #f8f9fa; padding: 8px; border-radius: 5px; margin-bottom: 10px; font-size: ${opcoes.compacto ? '9pt' : '9.5pt'};">
                                 ${planoAtual.diagnostico}
                             </div>
                             ${planoAtual.historia ? `
-                            <div style="margin-bottom: 10px;"><strong>História Pregressa:</strong></div>
-                            <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; font-size: 10pt;">
+                            <div style="margin-bottom: 5px;"><strong>História Pregressa:</strong></div>
+                            <div style="background: #f8f9fa; padding: 8px; border-radius: 5px; font-size: ${opcoes.compacto ? '9pt' : '9.5pt'};">
                                 ${planoAtual.historia}
                             </div>
                             ` : ''}
@@ -1653,12 +1721,12 @@
             
             if (opcoes.saps) {
                 html += `
-                    <div class="secao-visualizacao imprimir" style="margin-bottom: 1.5rem; page-break-inside: avoid;">
-                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">
+                    <div class="view-section print-include" style="margin-bottom: ${opcoes.compacto ? '0.8rem' : '1.2rem'};">
+                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-bottom: 8px; font-size: ${opcoes.compacto ? '10.5pt' : '11.5pt'};">
                             ESCALA SAPS III
                         </div>
-                        <div style="font-size: 10.5pt;">
-                            ${planoAtual.saps || 'SAPS III: Não calculado'}
+                        <div style="font-size: ${opcoes.compacto ? '9.5pt' : '10pt'};">
+                            ${planoAtual.saps.replace(/<[^>]*>/g, '') || 'SAPS III: Não calculado'}
                         </div>
                     </div>
                 `;
@@ -1666,24 +1734,24 @@
             
             if (opcoes.metas) {
                 html += `
-                    <div class="secao-visualizacao imprimir" style="margin-bottom: 1.5rem; page-break-inside: avoid;">
-                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">
+                    <div class="view-section print-include" style="margin-bottom: ${opcoes.compacto ? '0.8rem' : '1.2rem'};">
+                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-bottom: 8px; font-size: ${opcoes.compacto ? '10.5pt' : '11.5pt'};">
                             METAS TERAPÊUTICAS
                         </div>
-                        <div style="font-size: 10.5pt;">
-                            <div style="margin-bottom: 10px;"><strong>Meta Diária:</strong></div>
-                            <div style="background: #f0f9ff; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 10pt;">
+                        <div style="font-size: ${opcoes.compacto ? '9.5pt' : '10pt'};">
+                            <div style="margin-bottom: 5px;"><strong>Meta Diária:</strong></div>
+                            <div style="background: #f0f9ff; padding: 8px; border-radius: 5px; margin-bottom: 10px; font-size: ${opcoes.compacto ? '9pt' : '9.5pt'};">
                                 ${planoAtual.metaDiaria}
                             </div>
                             ${planoAtual.metaAnterior ? `
-                            <div style="margin-bottom: 10px;"><strong>Meta Anterior:</strong></div>
-                            <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 10pt;">
+                            <div style="margin-bottom: 5px;"><strong>Meta Anterior:</strong></div>
+                            <div style="background: #f8f9fa; padding: 8px; border-radius: 5px; margin-bottom: 10px; font-size: ${opcoes.compacto ? '9pt' : '9.5pt'};">
                                 ${planoAtual.metaAnterior}
                             </div>
                             ` : ''}
                             ${planoAtual.pendencias ? `
-                            <div style="margin-bottom: 10px;"><strong>Pendências:</strong></div>
-                            <div style="background: #fff3cd; padding: 10px; border-radius: 5px; font-size: 10pt;">
+                            <div style="margin-bottom: 5px;"><strong>Pendências:</strong></div>
+                            <div style="background: #fff3cd; padding: 8px; border-radius: 5px; font-size: ${opcoes.compacto ? '9pt' : '9.5pt'};">
                                 ${planoAtual.pendencias}
                             </div>
                             ` : ''}
@@ -1693,94 +1761,91 @@
             }
             
             if (opcoes.equipe && opcoes.assinaturas) {
-                html += `
-                    <div class="secao-visualizacao imprimir" style="margin-bottom: 1.5rem; page-break-inside: avoid;">
-                        <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">
-                            EQUIPE MULTIPROFISSIONAL
-                        </div>
-                        <div style="font-size: 10.5pt;">
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
-                                ${planoAtual.equipe.medico ? `
-                                <div>
-                                    <div style="font-weight: 600; margin-bottom: 5px;">Médico Intensivista</div>
-                                    <div style="height: 40px; border-bottom: 1px dashed #000; margin-top: 5px;">
-                                        <div style="font-size: 8pt; color: #666; margin-top: 30px;">Assinatura</div>
+                const membrosAtivos = Object.entries(planoAtual.equipe).filter(([_, ativo]) => ativo);
+                
+                if (membrosAtivos.length > 0) {
+                    html += `
+                        <div class="view-section print-include" style="margin-bottom: ${opcoes.compacto ? '0.8rem' : '1.2rem'};">
+                            <div style="font-weight: bold; color: var(--azul-hospital); border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-bottom: 8px; font-size: ${opcoes.compacto ? '10.5pt' : '11.5pt'};">
+                                EQUIPE MULTIPROFISSIONAL
+                            </div>
+                            <div style="font-size: ${opcoes.compacto ? '9.5pt' : '10pt'};">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(${opcoes.compacto ? '150px' : '170px'}, 1fr)); gap: ${opcoes.compacto ? '10px' : '15px'};">
+                    `;
+                    
+                    const nomesProfissionais = {
+                        medico: 'Médico',
+                        enfermagem: 'Enfermagem',
+                        nutricao: 'Nutrição',
+                        fisioterapia: 'Fisioterapia',
+                        infeccao: 'Controle Infecção',
+                        farmacia: 'Farmácia Clínica',
+                        social: 'Serviço Social',
+                        psicologia: 'Psicologia'
+                    };
+                    
+                    membrosAtivos.forEach(([tipo, _]) => {
+                        html += `
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: 3px; font-size: ${opcoes.compacto ? '9pt' : '9.5pt'};">
+                                    ${nomesProfissionais[tipo]}
+                                </div>
+                                <div style="height: ${opcoes.compacto ? '35px' : '40px'}; border-bottom: 1px dashed #000; margin-top: 2px;">
+                                    <div style="font-size: ${opcoes.compacto ? '7pt' : '8pt'}; color: #666; margin-top: ${opcoes.compacto ? '25px' : '30px'};">
+                                        Assinatura
                                     </div>
                                 </div>
-                                ` : ''}
-                                
-                                ${planoAtual.equipe.enfermeiro ? `
-                                <div>
-                                    <div style="font-weight: 600; margin-bottom: 5px;">Enfermeiro</div>
-                                    <div style="height: 40px; border-bottom: 1px dashed #000; margin-top: 5px;">
-                                        <div style="font-size: 8pt; color: #666; margin-top: 30px;">Assinatura</div>
-                                    </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
                                 </div>
-                                ` : ''}
-                                
-                                ${planoAtual.equipe.nutricionista ? `
-                                <div>
-                                    <div style="font-weight: 600; margin-bottom: 5px;">Nutricionista</div>
-                                    <div style="height: 40px; border-bottom: 1px dashed #000; margin-top: 5px;">
-                                        <div style="font-size: 8pt; color: #666; margin-top: 30px;">Assinatura</div>
-                                    </div>
-                                </div>
-                                ` : ''}
-                                
-                                ${planoAtual.equipe.fisioterapeuta ? `
-                                <div>
-                                    <div style="font-weight: 600; margin-bottom: 5px;">Fisioterapeuta</div>
-                                    <div style="height: 40px; border-bottom: 1px dashed #000; margin-top: 5px;">
-                                        <div style="font-size: 8pt; color: #666; margin-top: 30px;">Assinatura</div>
-                                    </div>
-                                </div>
-                                ` : ''}
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
             }
             
             html += `
-                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ccc; font-size: 9pt; color: #666; text-align: center;">
-                    <p>São José Hospital - UTI Adulta | Plano Terapêutico Singular</p>
-                    <p>Documento otimizado para economia de papel | Última atualização: ${planoAtual.dataAtualizacao}</p>
+                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ccc; font-size: ${opcoes.compacto ? '8pt' : '9pt'}; color: #666; text-align: center;">
+                    <p>Hospital São José - UTI Adulta | Sistema de Plano Terapêutico Singular</p>
+                    <p>Documento gerado em: ${new Date().toLocaleDateString('pt-BR')} | Última atualização: ${planoAtual.dataAtualizacao}</p>
                 </div>
+            </div>
             `;
             
             preview.innerHTML = html;
         }
 
-        function imprimirPlano() {
+        function imprimirDocumento() {
             if (!planoAtual) {
-                mostrarMensagem('Selecione um plano para imprimir', 'erro');
+                mostrarAlerta('Selecione um plano para imprimir', 'error');
                 return;
             }
             
-            // Atualizar preview com opções atuais
-            atualizarPreview();
+            atualizarPrintPreview();
             
-            // Configurar estilos para impressão
-            const estilos = `
+            // Configurar para impressão
+            const printStyles = `
                 <style>
                     @media print {
                         body * {
                             visibility: hidden;
                         }
-                        #previewImpressao, #previewImpressao * {
+                        #printPreview, #printPreview * {
                             visibility: visible;
                         }
-                        #previewImpressao {
+                        #printPreview {
                             position: absolute;
                             left: 0;
                             top: 0;
                             width: 100%;
-                            padding: 0;
+                            padding: 20px;
                             margin: 0;
-                            font-size: 11pt;
                         }
-                        .secao-visualizacao {
-                            margin-bottom: 1rem !important;
+                        .view-section {
+                            margin-bottom: 0.8rem !important;
                             page-break-inside: avoid;
                         }
                         .no-print {
@@ -1790,95 +1855,93 @@
                 </style>
             `;
             
-            // Adicionar estilos temporariamente
-            const estiloAntigo = document.head.innerHTML;
-            document.head.innerHTML += estilos;
+            const oldHead = document.head.innerHTML;
+            document.head.innerHTML += printStyles;
             
-            // Imprimir
             window.print();
             
-            // Restaurar estilos
-            document.head.innerHTML = estiloAntigo;
+            document.head.innerHTML = oldHead;
             
-            mostrarMensagem('Plano enviado para impressão', 'sucesso');
+            mostrarAlerta('Documento enviado para impressão', 'success');
         }
 
-        function exportarPDF() {
+        function exportarParaPDF() {
             if (!planoAtual) {
-                mostrarMensagem('Selecione um plano para exportar', 'erro');
+                mostrarAlerta('Selecione um plano para exportar', 'error');
                 return;
             }
             
-            mostrarMensagem('Funcionalidade de PDF em desenvolvimento. Use a opção de impressão para salvar como PDF.', 'sucesso');
+            // Em uma versão real, aqui integraríamos com uma biblioteca como jsPDF
+            // Por enquanto, instruímos o usuário
+            mostrarAlerta('Use a opção "Imprimir" e selecione "Salvar como PDF" na impressora', 'success');
         }
 
-        // FUNÇÕES AUXILIARES
-        function mostrarMensagem(texto, tipo) {
-            const mensagem = document.getElementById('mensagemStatus');
-            mensagem.textContent = texto;
-            mensagem.className = `mensagem-status mensagem-${tipo}`;
-            mensagem.style.display = 'block';
+        // ===== FUNÇÕES AUXILIARES =====
+        function mostrarAlerta(mensagem, tipo) {
+            const alerta = document.getElementById('alertMessage');
+            alerta.textContent = mensagem;
+            alerta.className = `alert alert-${tipo}`;
+            alerta.style.display = 'block';
             
             setTimeout(() => {
-                mensagem.style.display = 'none';
-            }, 3000);
+                alerta.style.display = 'none';
+            }, 4000);
         }
 
         function atualizarContador() {
-            document.getElementById('contador').textContent = planosSalvos.length;
+            document.getElementById('plansCount').textContent = planosSalvos.length;
         }
 
         function limparFormulario() {
-            document.getElementById('formularioPlano').reset();
+            document.getElementById('planoForm').reset();
             document.getElementById('planoId').value = '';
-            document.getElementById('resultadoSAPS').innerHTML = 'SAPS III: Não calculado | Mortalidade estimada: --%';
-            document.getElementById('dataAdmissao').valueAsDate = new Date();
+            document.getElementById('sapsResult').innerHTML = 'SAPS III: -- | Mortalidade estimada: --% | Classificação: --';
+            document.getElementById('admissao').valueAsDate = new Date();
             
             // Limpar seleção da equipe
-            document.querySelectorAll('.membro-equipe').forEach(membro => {
-                membro.classList.remove('selecionado');
+            document.querySelectorAll('.team-member').forEach(membro => {
+                membro.classList.remove('selected');
             });
             
             planoAtual = null;
             localStorage.removeItem('ultimoPlanoEditado');
             
-            mostrarMensagem('Formulário limpo com sucesso', 'sucesso');
+            mostrarAlerta('Formulário limpo com sucesso', 'success');
         }
 
         function carregarExemplo() {
-            document.getElementById('nomePaciente').value = 'Maria Oliveira Santos';
-            document.getElementById('idade').value = '68';
-            document.getElementById('sexo').value = 'F';
-            document.getElementById('leito').value = 'UTI-01';
-            document.getElementById('dataAdmissao').value = '2024-01-15';
-            document.getElementById('registro').value = 'UTI-2024-015';
-            document.getElementById('diagnostico').value = 'Sepse de origem abdominal com choque séptico. Paciente com perfuração intestinal submetida a laparotomia exploradora.';
-            document.getElementById('historia').value = 'HAS há 15 anos, DM2 há 10 anos, colecistectomia em 2018. Alergia à penicilina. Medicações prévias: Losartana 50mg/dia, Metformina 850mg 12/12h.';
-            document.getElementById('metaDiaria').value = '1. Manter antibioticoterapia (Meropenem 1g 8/8h)\n2. Controle hemodinâmico (PAM ≥65mmHg)\n3. Normalizar lactato em 6h\n4. Avaliar necessidade de reoperação';
-            document.getElementById('metaAnterior').value = '1. Reposição volêmica agressiva - CONCLUÍDO\n2. Antibioticoterapia empírica - CONCLUÍDO\n3. Monitorização contínua - EM ANDAMENTO';
-            document.getElementById('pendencias').value = '1. Cultura de sangue pendente\n2. Avaliação cirúrgica para necessidade de reintervenção\n3. Avaliação nutricional completa';
+            document.getElementById('nome').value = 'Carlos Alberto Mendonça';
+            document.getElementById('idade').value = '72';
+            document.getElementById('sexo').value = 'M';
+            document.getElementById('leito').value = 'UTI-03';
+            document.getElementById('admissao').value = '2024-01-20';
+            document.getElementById('registro').value = 'SJ-UTI-2024-028';
+            document.getElementById('diagnostico').value = 'Pneumonia grave associada à ventilação mecânica com sepse. Paciente em VM há 7 dias, com piora do quadro nas últimas 48h.';
+            document.getElementById('historia').value = 'HAS há 20 anos, DM2 há 15 anos, DPOC moderada, tabagista (40 anos-maço). Alergia a sulfas. Medicações: Losartana 100mg/dia, Insulina NPH 30UI/dia, Salbutamol SOS.';
+            document.getElementById('metaDiaria').value = '1. Otimizar antibioticoterapia (Vancomicina + Meropenem)\n2. Melhorar relação PaO₂/FiO₂ (>200)\n3. Desmame progressivo da ventilação mecânica\n4. Controle glicêmico rigoroso (140-180 mg/dL)';
+            document.getElementById('metaAnterior').value = '1. Estabilidade hemodinâmica - ALCANÇADA\n2. Início de antibioticoterapia - CONCLUÍDO\n3. Avaliação nutricional - EM ANDAMENTO';
+            document.getElementById('pendencias').value = '1. Cultura de secreção traqueal pendente\n2. Avaliação fisioterapêutica para desmame\n3. Controle de glicemia capilar 4/4h';
             
-            // Preencher SAPS
-            document.getElementById('sapsIdade').value = '68';
-            document.getElementById('sapsPas').value = '85';
-            document.getElementById('sapsFc').value = '115';
-            document.getElementById('sapsTemp').value = '38.5';
-            document.getElementById('sapsPaO2').value = '180';
-            document.getElementById('sapsGlasgow').value = '13';
-            document.getElementById('sapsBilirrubina').value = '2.1';
-            document.getElementById('sapsLeucocitos').value = '18.5';
+            // SAPS
+            document.getElementById('sapsIdade').value = '72';
+            document.getElementById('sapsPas').value = '90';
+            document.getElementById('sapsFc').value = '105';
+            document.getElementById('sapsTemp').value = '38.2';
+            document.getElementById('sapsPaO2').value = '160';
+            document.getElementById('sapsGlasgow').value = '14';
             
             calcularSAPS();
             
-            // Selecionar alguns membros da equipe
-            document.getElementById('equipeMedico').checked = true;
-            document.getElementById('equipeEnfermeiro').checked = true;
-            document.getElementById('equipeNutricionista').checked = true;
-            document.getElementById('equipeFisioterapeuta').checked = true;
+            // Equipe
+            document.getElementById('teamMedico').checked = true;
+            document.getElementById('teamEnfermagem').checked = true;
+            document.getElementById('teamNutricao').checked = true;
+            document.getElementById('teamFisioterapia').checked = true;
+            document.getElementById('teamInfeccao').checked = true;
             
-            atualizarSelecaoEquipe();
+            atualizarVisualEquipe();
             
-            mostrarMensagem('Dados de exemplo carregados. Edite conforme necessário.', 'sucesso');
+            mostrarAlerta('Dados de exemplo carregados. Edite conforme necessário.', 'success');
         }
     </script>
 </body>
